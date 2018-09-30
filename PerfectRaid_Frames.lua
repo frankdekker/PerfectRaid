@@ -59,7 +59,7 @@ function Frames:DONGLE_PROFILE_CREATED(event, db, addon, svname, profileKey)
 		sortType = "NAME",
 		deficit = 1,
 		colAnchor = "LEFT",
-		filter = "WARRIOR,DEATHKNIGHT,PRIEST,DRUID,SHAMAN,PALADIN,MONK,MAGE,ROGUE,WARLOCK,HUNTER",
+		filter = "WARRIOR,DEATHKNIGHT,PRIEST,DRUID,SHAMAN,PALADIN,MONK,MAGE,ROGUE,WARLOCK,HUNTER,DEMONHUNTER",
 		groupBy = "CLASS",
 		maxUnits = 25,
 	}
@@ -256,6 +256,7 @@ function Frames:CreateEditFrame(parent)
 	makeCheck(L["Rogue"], "ROGUE")
 	makeCheck(L["Warlock"], "WARLOCK")
 	makeCheck(L["Hunter"], "HUNTER")
+    makeCheck(L["Demon Hunter"], "DEMONHUNTER")
 	makeCheck(L["Group 1"], "1")
 	makeCheck(L["Group 2"], "2")
 	makeCheck(L["Group 3"], "3")
@@ -264,7 +265,7 @@ function Frames:CreateEditFrame(parent)
 	makeCheck(L["Group 6"], "6")
 	makeCheck(L["Group 7"], "7")
 	makeCheck(L["Group 8"], "8")
-	makeCheck(L["All Classes"], "WARRIOR,DEATHKNIGHT,PRIEST,DRUID,SHAMAN,PALADIN,MONK,MAGE,ROGUE,WARLOCK,HUNTER")
+	makeCheck(L["All Classes"], "WARRIOR,DEATHKNIGHT,PRIEST,DRUID,SHAMAN,PALADIN,MONK,MAGE,ROGUE,WARLOCK,HUNTER,DEMONHUNTER")
 	makeCheck(L["All Groups"], "1,2,3,4,5,6,7,8")
 	makeCheck(L["Main tanks"], "MAINTANK")
 	makeCheck(L["Main assists"], "MAINASSIST")
@@ -715,7 +716,7 @@ end
 
 StaticPopupDialogs["PR_FRAME_SAVE_ERROR"] = {
 	text = "",
-	button1 = TEXT(OKAY),
+	button1 = "OK",
 	OnAccept = function()
 	end,
 	timeout = 0,

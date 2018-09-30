@@ -1014,6 +1014,7 @@ Buffs.conditions = {
 	["Death Knight"] = function(u,c,g) return c == "DEATHKNIGHT" end,
 	["Monk"] = function(u,c,g) return c == "MONK" end,
 	["Priest"] = function(u,c,g) return c == "PRIEST" end,
+	["Demon Hunter"] = function(u,c,g) return c == "DEMONHUNTER" end,
 	["Druid"] = function(u,c,g) return c == "DRUID" end,
 	["Paladin"] = function(u,c,g) return c == "PALADIN" end,
 	["Shaman"] = function(u,c,g) return c == "SHAMAN" end,
@@ -1046,7 +1047,7 @@ end
 
 StaticPopupDialogs["PR_BUFF_SAVE_ERROR"] = {
 	text = "",
-	button1 = TEXT(OKAY),
+	button1 = "OK",
 	OnAccept = function()
 	end,
 	timeout = 0,

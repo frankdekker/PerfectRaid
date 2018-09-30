@@ -74,10 +74,7 @@
 				local name = self:GetName()
 				table.insert(UISpecialFrames,name)
 				self.Title = getglobal(name.."Title")
-			</OnLoad>
-			<OnHide>
-				PlaySound("UChatScrollButton");
-			</OnHide>
+			</OnLoad>			
 		</Scripts>
 	</Frame>
 	<Button name="PRTabTemplate" hidden="false" inherits="CharacterFrameTabButtonTemplate" virtual="true">>

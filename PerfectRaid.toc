@@ -1,6 +1,6 @@
-## Interface: 60000
+## Interface: 70000
 ## Title: PerfectRaid
-## Version: @project-version@
+## Version: v70000-1.0.0
 ## Author: Cladhaire
 ## Notes: Simply powerful raid and party frames
 ## SavedVariables: PerfectRaidDB

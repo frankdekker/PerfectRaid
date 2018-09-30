@@ -89,11 +89,11 @@ function PerfectRaid:Enable()
 	self.db.global.sv_version = self.rev
 
 	self:RegisterEvent("GROUP_ROSTER_UPDATE")
-    self:RegisterEvent("PARTY_MEMBERS_CHANGED", "GROUP_ROSTER_UPDATE")
+    --self:RegisterEvent("PARTY_MEMBERS_CHANGED", "GROUP_ROSTER_UPDATE")
 	self:RegisterEvent("UNIT_DISPLAYPOWER")
 	self:RegisterEvent("UNIT_HEALTH")
 	self:RegisterEvent("UNIT_MAXHEALTH")
-	self:RegisterEvent("UNIT_POWER", "UNIT_POWER")
+	self:RegisterEvent("UNIT_POWER_UPDATE", "UNIT_POWER")
 	self:RegisterEvent("UNIT_MAXPOWER", "UNIT_MAXPOWER")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("PLAYER_ALIVE", function() self:UNIT_HEALTH("UNIT_HEALTH", "player") end)
@@ -241,7 +241,7 @@ function PerfectRaid:CreateRaidFrame(idx)
 	frame:SetAttribute("groupBy", options.groupBy)
 	local groupOrder
 	if options.groupBy == "CLASS" then
-		groupOrder="WARRIOR,DEATHKNIGHT,PALADIN,DRUID,MONK,PRIEST,SHAMAN,MAGE,ROGUE,WARLOCK,HUNTER"
+		groupOrder="WARRIOR,DEATHKNIGHT,DEMONHUNTER,MONK,PALADIN,ROGUE,DRUID,SHAMAN,PRIEST,MAGE,WARLOCK,HUNTER"
 	elseif options.groupBy == "GROUP" then
 		groupOrder="1,2,3,4,5,6,7,8"
 	end
@@ -519,7 +519,7 @@ function OnAttributeChanged(frame, name, value)
 
 		local color = frame.manacolor
 		frame.manabar:SetStatusBarColor(color.r, color.g, color.b)
-		frame.manabar:SetMinMaxValues(0, UnitManaMax(unit))
+		frame.manabar:SetMinMaxValues(0, UnitPowerMax(unit, 0))
 		frame.manabar:SetValue(UnitMana(unit))
 
 		-- Show/Hide the mana bar depending on unit power type

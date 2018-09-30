@@ -202,7 +202,7 @@ function Config:PartyVisibility()
 		for i=1,4 do
 			local f = getglobal("PartyMemberFrame"..i)
 			f:RegisterEvent("PLAYER_ENTERING_WORLD");
-			f:RegisterEvent("PARTY_MEMBERS_CHANGED");
+			--f:RegisterEvent("PARTY_MEMBERS_CHANGED");
 			f:RegisterEvent("PARTY_LEADER_CHANGED");
 			f:RegisterEvent("PARTY_MEMBER_ENABLE");
 			f:RegisterEvent("PARTY_MEMBER_DISABLE");
