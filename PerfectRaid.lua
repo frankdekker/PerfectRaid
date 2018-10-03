@@ -520,7 +520,7 @@ function OnAttributeChanged(frame, name, value)
 		local color = frame.manacolor
 		frame.manabar:SetStatusBarColor(color.r, color.g, color.b)
 		frame.manabar:SetMinMaxValues(0, UnitPowerMax(unit, 0))
-		frame.manabar:SetValue(UnitMana(unit))
+		frame.manabar:SetValue(UnitPower(unit))
 
 		-- Show/Hide the mana bar depending on unit power type
 		local manaheight = frame.options.manaheight or 0
@@ -716,8 +716,8 @@ function PerfectRaid:UNIT_DISPLAYPOWER(event, unit)
 	if not frames[unit] then return end
 	local color = PowerBarColor[UnitPowerType(unit)]
 	local show = UnitPowerType(unit) == 0
-	local max = UnitManaMax(unit)
-	local mana = UnitMana(unit)
+	local max = UnitPowerMax(unit)
+	local mana = UnitPower(unit)
 	local manaonly = self.db.profile.showmanaonly
 
 	for frame in pairs(frames[unit]) do
