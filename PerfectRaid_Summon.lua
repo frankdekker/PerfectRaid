@@ -1,74 +1,85 @@
 --[[-------------------------------------------------------------------------
   *
-  * RaidIcons module for PerfectRaid addon.
+  * Summon pending icon module for PerfectRaid addon.
   *
   * Written by: Panoramix
   * Version: 1.0
   *
 ---------------------------------------------------------------------------]]
 
-local Resurrection = PerfectRaid:NewModule("PerfectRaid-Resurrection")
+local SummonPending = PerfectRaid:NewModule("PerfectRaid-SummonPending")
 local L = PerfectRaidLocals
 local utils, frames
 
-function Resurrection:Initialize()
+function SummonPending:Initialize()
 	frames = PerfectRaid.frames
 	utils = PerfectRaid.utils
 end
 
 -- Update Raid Icons when addon is enabled
-function Resurrection:Enable()
-	self:ShowResurrection()
+function SummonPending:Enable()
+	self:ShowSummonPending()
 end
 
 -- Show/Hide raid icons depending on value
-function Resurrection:ShowResurrection(value)
-	self:RegisterEvent("INCOMING_RESURRECT_CHANGED", "UpdateAllUnits")
+function SummonPending:ShowSummonPending(value)
+	self:RegisterEvent("INCOMING_SUMMON_CHANGED", "UpdateAllUnits")
 	self:RegisterEvent("UNIT_OTHER_PARTY_CHANGED", "UpdateAllUnits")
 	self:RegisterMessage("PERFECTRAID_FRAME_LAYOUT_CHANGED", "UpdateAllUnits")
 	self:UpdateAllUnits()
 end
 
 -- Request full update for all units
-function Resurrection:FullUpdate()
+function SummonPending:FullUpdate()
 	self:UpdateAllUnits()
 end
 
-function Resurrection:UpdateAllUnits()
+function SummonPending:UpdateAllUnits()
 
-    for unit, tbl in pairs(frames) do
-	
-		local resurrecting = UnitHasIncomingResurrection(unit) 
-		
-		if (resurrecting and frames and frames[unit]) then
-		
+	for unit, tbl in pairs(frames) do
+		local summoning = true
+		-- C_IncomingSummon.HasIncomingSummon(unit)
+
+		if (summoning and frames and frames[unit]) then
+			local summonState = true
+			-- C_IncomingSummon.IncomingSummonStatus(unit)
+
 			for frame in pairs(frames[unit]) do
 				-- create indicator and texture
-				if (not frame.resurrect) then
-					frame.resurrect = CreateFrame("Frame", nil, frame.healthbar)
-					frame.resurrect:SetHeight(frame:GetHeight())
-					frame.resurrect:SetWidth(frame:GetHeight( ))
-					frame.resurrect:SetFrameLevel(frame.leftbox:GetFrameLevel()+1)
+				if (not frame.summoning) then
+					frame.summoning = CreateFrame("Frame", nil, frame.healthbar)
+					frame.summoning:SetHeight(frame:GetHeight())
+					frame.summoning:SetWidth(frame:GetHeight( ))
+					frame.summoning:SetFrameLevel(frame.leftbox:GetFrameLevel()+1)
 
-					frame.resurrecticon = frame.resurrect:CreateTexture(nil, "OVERLAY")
-					frame.resurrecticon:SetAllPoints()
-					frame.resurrecticon:SetTexture("Interface\\RaidFrame\\Raid-Icon-Rez")
+					frame.summoningicon = frame.resurrect:CreateTexture(nil, "OVERLAY")
+					frame.summoningicon:SetAllPoints()
+					frame.summoningicon:SetTexture("Interface\\RaidFrame\\RaidFrameSummon")
+				end
+
+				-- set position
+				if (summonState == 1) then
+					frame.summoningicon:SetTexCoord(0.539062, 0.789062, 0.015625, 0.515625)
+				elseif (C_IncomingSummon.IncomingSummonStatus(frame.unit) == 2) then
+					frame.summoningicon:SetTexCoord(0.0078125, 0.257812, 0.015625, 0.515625)
+				elseif (C_IncomingSummon.IncomingSummonStatus(frame.unit) == 3) then
+					frame.summoningicon:SetTexCoord(0.273438, 0.523438, 0.015625, 0.515625)
 				end
 
 				-- resize the texture and show it
-				frame.resurrect:ClearAllPoints()
-				frame.resurrect:SetParent(frame.healthbar)
-				frame.resurrect:SetPoint("LEFT", 0, 0)		
-				frame.resurrect:Show()
-				frame.resurrecticon:Show()
+				frame.summoning:ClearAllPoints()
+				frame.summoning:SetParent(frame.healthbar)
+				frame.summoning:SetPoint("LEFT", 0, 0)
+				frame.summoning:Show()
+				frame.summoningicon:Show()
 			end
 		end
 
-		-- unit doesn't have resurrection, hide it
-		if (not resurrecting and frames and frames[unit]) then
+		-- unit doesn't have summon, hide it
+		if (not summoning and frames and frames[unit]) then
 			for frame in pairs(frames[unit]) do
-				if (frame.resurrecticon) then
-					frame.resurrecticon:Hide()
+				if (frame.summoning) then
+					frame.summoning:Hide()
 				end
 			end
 		end
