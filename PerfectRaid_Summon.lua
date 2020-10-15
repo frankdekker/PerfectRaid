@@ -52,7 +52,7 @@ function SummonPending:UpdateAllUnits()
 					frame.summoning:SetWidth(frame:GetHeight( ))
 					frame.summoning:SetFrameLevel(frame.leftbox:GetFrameLevel()+1)
 
-					frame.summoningicon = frame.resurrect:CreateTexture(nil, "OVERLAY")
+					frame.summoningicon = frame.summoning:CreateTexture(nil, "OVERLAY")
 					frame.summoningicon:SetAllPoints()
 					frame.summoningicon:SetTexture("Interface\\RaidFrame\\RaidFrameSummon")
 				end
