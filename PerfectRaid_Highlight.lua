@@ -66,7 +66,7 @@ local function OnEnter(frame)
 	end
 
 	if( opt.mouseover ) then
-		frame:SetBackdropColor(0.9, 0.9, 0.9, 0.3)
+		frame.backdrop:SetBackdropColor(0.9, 0.9, 0.9, 0.3)
 		mouseover = frame
 	end
 end
@@ -78,8 +78,8 @@ local function OnLeave(frame)
 end
 
 function Highlight:UpdateButtonLayout(button, options)
-	button:SetBackdrop(backdrop)
-	button:SetBackdropColor(0,0,0,0)
+	button.backdrop:SetBackdrop(backdrop)
+	button.backdrop:SetBackdropColor(0,0,0,0)
 
     if not button.highlight_scripts_set then
         button:HookScript("OnEnter", OnEnter)
@@ -154,16 +154,16 @@ function Highlight:UpdateUnit(unit, frame)
 
 	if frame then
 		if frame == mouseover then
-			frame:SetBackdropColor(0.9, 0.9, 0.9, 0.3)
+			frame.backdrop:SetBackdropColor(0.9, 0.9, 0.9, 0.3)
 		else
-			frame:SetBackdropColor(r,g,b,a)
+			frame.backdrop:SetBackdropColor(r,g,b,a)
 		end
 	else
 		for frame in pairs(frames[unit]) do
 			if frame == mouseover then
-				frame:SetBackdropColor(0.9, 0.9, 0.9, 0.3)
+				frame.backdrop:SetBackdropColor(0.9, 0.9, 0.9, 0.3)
 			else
-				frame:SetBackdropColor(r,g,b,a)
+				frame.backdrop:SetBackdropColor(r,g,b,a)
 			end
 		end
 	end
