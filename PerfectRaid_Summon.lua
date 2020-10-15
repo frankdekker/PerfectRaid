@@ -41,7 +41,7 @@ function SummonPending:UpdateAllUnits()
 		-- C_IncomingSummon.HasIncomingSummon(unit)
 
 		if (summoning and frames and frames[unit]) then
-			local summonState = true
+			local summonState = 1
 			-- C_IncomingSummon.IncomingSummonStatus(unit)
 
 			for frame in pairs(frames[unit]) do
