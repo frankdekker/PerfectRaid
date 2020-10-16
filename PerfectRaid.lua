@@ -600,9 +600,7 @@ function PerfectRaid.ConfigureButton(header, buttonName)
     button:SetAttribute("toggleForVehicle", not not options.vehicleSwap)
 
     -- Backdrop
-	local backdrop =  CreateFrame( "Frame", nil, button, BackdropTemplateMixin and "BackdropTemplate" )
-	backdrop:SetAllPoints()
-	button.backdrop = backdrop
+	Mixin(button, BackdropTemplateMixin)
 
 	local leftbox = CreateFrame("Frame", nil, button)
 	button.leftbox = leftbox
