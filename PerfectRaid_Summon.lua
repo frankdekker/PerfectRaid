@@ -46,30 +46,28 @@ function SummonPending:UpdateAllUnits()
 				-- create indicator and texture
 				if (not frame.summoning) then
 					frame.summoning = CreateFrame("Frame", nil, frame.healthbar)
-					frame.summoning:SetHeight(frame:GetHeight())
-					frame.summoning:SetWidth(frame:GetHeight( ))
+					frame.summoning:SetHeight(frame:GetHeight() + 5)
+					frame.summoning:SetWidth(frame:GetHeight( ) + 5)
 					frame.summoning:SetFrameLevel(frame.leftbox:GetFrameLevel()+1)
 
 					frame.summoningicon = frame.summoning:CreateTexture(nil, "OVERLAY")
 					frame.summoningicon:SetAllPoints()
+					frame.summoningicon:SetTexCoord(0, 1, 0, 1)
 				end
 
 				-- set position
 				if (summonState == Enum.SummonStatus.Pending) then
 					frame.summoningicon:SetAtlas("Raid-Icon-SummonPending");
-					frame.summoningicon:SetTexCoord(0, 1, 0, 1)
 				elseif (summonState == Enum.SummonStatus.Accepted) then
 					frame.summoningicon:SetAtlas("Raid-Icon-SummonAccepted");
-					frame.summoningicon:SetTexCoord(0, 1, 0, 1);
 				elseif (summonState == Enum.SummonStatus.Declined) then
 					frame.summoningicon:SetAtlas("Raid-Icon-SummonDeclined");
-					frame.summoningicon:SetTexCoord(0, 1, 0, 1);
 				end
 
 				-- resize the texture and show it
 				frame.summoning:ClearAllPoints()
 				frame.summoning:SetParent(frame.healthbar)
-				frame.summoning:SetPoint("LEFT", 0, 0)
+				frame.summoning:SetPoint("RIGHT", 17, 0)
 				frame.summoning:Show()
 				frame.summoningicon:Show()
 			end
