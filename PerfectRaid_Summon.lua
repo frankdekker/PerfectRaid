@@ -37,12 +37,10 @@ end
 function SummonPending:UpdateAllUnits()
 
 	for unit, tbl in pairs(frames) do
-		local summoning = true
-		-- C_IncomingSummon.HasIncomingSummon(unit)
+		local summoning = C_IncomingSummon.HasIncomingSummon(unit)
 
 		if (summoning and frames and frames[unit]) then
-			local summonState = 1
-			-- C_IncomingSummon.IncomingSummonStatus(unit)
+			local summonState = C_IncomingSummon.IncomingSummonStatus(unit)
 
 			for frame in pairs(frames[unit]) do
 				-- create indicator and texture
@@ -54,16 +52,18 @@ function SummonPending:UpdateAllUnits()
 
 					frame.summoningicon = frame.summoning:CreateTexture(nil, "OVERLAY")
 					frame.summoningicon:SetAllPoints()
-					frame.summoningicon:SetTexture("Interface\\RaidFrame\\RaidFrameSummon")
 				end
 
 				-- set position
-				if (summonState == 1) then
-					frame.summoningicon:SetTexCoord(0.539062, 0.789062, 0.015625, 0.515625)
-				elseif (C_IncomingSummon.IncomingSummonStatus(frame.unit) == 2) then
-					frame.summoningicon:SetTexCoord(0.0078125, 0.257812, 0.015625, 0.515625)
-				elseif (C_IncomingSummon.IncomingSummonStatus(frame.unit) == 3) then
-					frame.summoningicon:SetTexCoord(0.273438, 0.523438, 0.015625, 0.515625)
+				if (summonState == Enum.SummonStatus.Pending) then
+					frame.summoningicon:SetAtlas("Raid-Icon-SummonPending");
+					frame.summoningicon:SetTexCoord(0, 1, 0, 1)
+				elseif (summonState == Enum.SummonStatus.Accepted) then
+					frame.summoningicon:SetAtlas("Raid-Icon-SummonAccepted");
+					frame.summoningicon:SetTexCoord(0, 1, 0, 1);
+				elseif (summonState == Enum.SummonStatus.Declined) then
+					frame.summoningicon:SetAtlas("Raid-Icon-SummonDeclined");
+					frame.summoningicon:SetTexCoord(0, 1, 0, 1);
 				end
 
 				-- resize the texture and show it
