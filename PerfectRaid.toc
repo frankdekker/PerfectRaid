@@ -1,6 +1,6 @@
-## Interface: 70000
+## Interface: 90000
 ## Title: PerfectRaid
-## Version: v70000-1.0.0
+## Version: v90000-1.0.0
 ## Author: Cladhaire
 ## Notes: Simply powerful raid and party frames
 ## SavedVariables: PerfectRaidDB
@@ -32,3 +32,4 @@ PerfectRaid_RaidIcons.lua
 PerfectRaid_IncomingHeals.lua
 PerfectRaid_Roles.lua
 PerfectRaid_Resurrection.lua
+PerfectRaid_Summon.lua

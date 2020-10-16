@@ -69,6 +69,19 @@ end
 local tabs = {}
 function Options:CreateOptions()
 	local frame = CreateFrame("Frame", "PROptions", UIParent, "PROptionsTemplate")
+	frame:SetBackdrop({
+		bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+		tile = true,
+		tileSize = 32,
+		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+		edgeSize = 32,
+		insets = {
+			left = 11,
+			right = 12,
+			top = 12,
+			bottom = 11
+		}
+	})
 	frame:SetHeight(450)
 	frame:SetWidth(650)
 	frame:SetPoint("CENTER", 0, 50)

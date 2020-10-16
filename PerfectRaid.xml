@@ -1,25 +1,14 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-	<Frame name="PROptionsTemplate" movable="true" frameStrata="DIALOG" toplevel="true" hidden="true" parent="UIParent" virtual="true">
+	<Frame name="PROptionsTemplate" movable="true" frameStrata="DIALOG" toplevel="true" hidden="true" parent="UIParent" virtual="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="500" y="400"/>
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
-		</Anchors>
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11"/>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="32"/>
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32"/>
-			</EdgeSize>
-		</Backdrop>
+		</Anchors>		
 		<Frames>
-		  <Button name="$parentHeader">			
+		  <Button name="$parentHeader">
 			<Size>
 			  <AbsDimension x="350" y="64"/>
 			</Size>
@@ -74,7 +63,10 @@
 				local name = self:GetName()
 				table.insert(UISpecialFrames,name)
 				self.Title = getglobal(name.."Title")
-			</OnLoad>			
+			</OnLoad>
+			<OnHide>
+				PlaySound(SOUNDKIT.IG_CHAT_SCROLL_UP);
+			</OnHide>
 		</Scripts>
 	</Frame>
 	<Button name="PRTabTemplate" hidden="false" inherits="CharacterFrameTabButtonTemplate" virtual="true">>

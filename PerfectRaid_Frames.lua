@@ -716,7 +716,7 @@ end
 
 StaticPopupDialogs["PR_FRAME_SAVE_ERROR"] = {
 	text = "",
-	button1 = "OK",
+	button1 = OKAY and OKAY or "Okay",
 	OnAccept = function()
 	end,
 	timeout = 0,
