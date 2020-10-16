@@ -1,6 +1,6 @@
-## Interface: 90000
+## Interface: 90001
 ## Title: PerfectRaid
-## Version: v90000-1.0.0
+## Version: v90001-1.0-65b42a0
 ## Author: Cladhaire
 ## Notes: Simply powerful raid and party frames
 ## SavedVariables: PerfectRaidDB
