@@ -89,11 +89,10 @@ function PerfectRaid:Enable()
 	self.db.global.sv_version = self.rev
 
 	self:RegisterEvent("GROUP_ROSTER_UPDATE")
-    --self:RegisterEvent("PARTY_MEMBERS_CHANGED", "GROUP_ROSTER_UPDATE")
 	self:RegisterEvent("UNIT_DISPLAYPOWER")
 	self:RegisterEvent("UNIT_HEALTH")
 	self:RegisterEvent("UNIT_MAXHEALTH")
-	self:RegisterEvent("UNIT_POWER_UPDATE", "UNIT_POWER")
+	self:RegisterEvent("UNIT_POWER_UPDATE")
 	self:RegisterEvent("UNIT_MAXPOWER", "UNIT_MAXPOWER")
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("PLAYER_ALIVE", function() self:UNIT_HEALTH("UNIT_HEALTH", "player") end)
@@ -184,7 +183,6 @@ end
 function PerfectRaid:CreateRaidFrame(idx)
 	local options = self.db.profile.headers[idx]
 	local name = "PRHeader"..idx
-	local template = "SecureGroupHeaderTemplate"
 
 	local frame = getglobal(name)
 
@@ -206,6 +204,7 @@ function PerfectRaid:CreateRaidFrame(idx)
 				bottom = 5
 			},
 		}
+
 	end
 
 	-- Position backdrop
@@ -401,7 +400,7 @@ function PerfectRaid:UNIT_HEALTH(event, unit)
 	end
 end
 
-function PerfectRaid:UNIT_POWER(event, unit, powerType)
+function PerfectRaid:UNIT_POWER_UPDATE(event, unit, powerType)
 	if not frames[unit] then return end
     local currentType, currentToken = UnitPowerType(unit)
     if currentToken == powerType then
@@ -421,7 +420,7 @@ function PerfectRaid:UNIT_MAXPOWER(event, unit, powerType)
         local mana = UnitPower(unit, currentType)
         for frame in pairs(frames[unit]) do
             frame.manabar:SetMinMaxValues(0, max)
-            self:UNIT_POWER(nil, unit, powerType)
+            self:UNIT_POWER_UPDATE(nil, unit, powerType)
         end
 	end
 end
@@ -518,7 +517,7 @@ function OnAttributeChanged(frame, name, value)
 
 		local color = frame.manacolor
 		frame.manabar:SetStatusBarColor(color.r, color.g, color.b)
-		frame.manabar:SetMinMaxValues(0, UnitPowerMax(unit, 0))
+		frame.manabar:SetMinMaxValues(0, UnitPowerMax(unit))
 		frame.manabar:SetValue(UnitPower(unit))
 
 		-- Show/Hide the mana bar depending on unit power type
@@ -538,7 +537,7 @@ function OnAttributeChanged(frame, name, value)
 		end
 
 		self:UNIT_HEALTH(nil, unit)
-		self:UNIT_POWER(nil, unit)
+		self:UNIT_POWER_UPDATE(nil, unit)
 		self:TriggerMessage("PERFECTRAID_FRAME_LAYOUT_CHANGED");
 	end
 
@@ -743,7 +742,7 @@ local updateMethods = {
     "UNIT_DISPLAYPOWER",
     "UNIT_HEALTH",
     "UNIT_MAXHEALTH",
-	"UNIT_POWER",
+	"UNIT_POWER_UPDATE",
 	"UNIT_MAXPOWER",
 }
 

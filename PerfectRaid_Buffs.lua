@@ -184,8 +184,7 @@ function Buffs:UNIT_AURA(event, unit)
 
 
 	for i=1,40 do
-		local name,rank,texture,count,dispelType,duration,expires,caster,stealable = UnitBuff(unit, i)
-		local name,icon,count,dispelType,duration,expires,caster,stealable = UnitBuff(unit, i)
+		local name,texture,count,dispelType,duration,expires,caster,stealable = UnitBuff(unit, i)
 		if not name then break end
 		if caster == "player" then
 			mybuffs[name] = true
@@ -199,7 +198,7 @@ function Buffs:UNIT_AURA(event, unit)
 
 	local debuffType
 	for i=1,40 do
-		local name,icon,count,dispelType,duration,expires,caster = UnitDebuff(unit, i)
+		local name,texture,count,dispelType,duration,expires,caster = UnitDebuff(unit, i)
 		if not name and not dispelType then break end
 
 		buffcache[name] = (buffcache[name] or 0) + 1
@@ -1048,7 +1047,7 @@ end
 
 StaticPopupDialogs["PR_BUFF_SAVE_ERROR"] = {
 	text = "",
-	button1 = "OK",
+	button1 = OKAY and OKAY or "Okay",
 	OnAccept = function()
 	end,
 	timeout = 0,
