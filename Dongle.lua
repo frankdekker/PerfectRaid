@@ -1079,6 +1079,7 @@ function Dongle.CopyProfile(db, name)
 
 	copyDefaults(profile, source, true)
 	Dongle:TriggerMessage("DONGLE_PROFILE_COPIED", db, db.parent, db.sv_name, name, db.keys.profile)
+	print("Copied profile " .. name .. " to current profile")
 end
 
 function Dongle.ResetProfile(db)

@@ -40,7 +40,7 @@ function Options:Enable()
 	self.cmd:RegisterSlashHandler(L["Show options GUI"], "^$", "ShowOptions")
 	self.cmd:RegisterSlashHandler(L["lock - Lock frames"], "^lock$", "LockFrames")
 	self.cmd:RegisterSlashHandler(L["unlock - Unlock frames"], "^unlock$", "UnlockFrames")
-	--self.cmd:InjectDBCommands(PerfectRaid.db, "copy", "delete", "list", "reset", "set")
+	self.cmd:InjectDBCommands(PerfectRaid.db, "copy", "delete", "list", "reset", "set")
 end
 
 function Options:LockFrames()
