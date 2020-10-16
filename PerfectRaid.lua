@@ -183,11 +183,12 @@ end
 function PerfectRaid:CreateRaidFrame(idx)
 	local options = self.db.profile.headers[idx]
 	local name = "PRHeader"..idx
+	local template = "SecureGroupHeaderTemplate,BackdropTemplate"
 
 	local frame = getglobal(name)
 
 	if not frame then
-		frame = CreateFrame("Frame", name, UIParent, BackdropTemplateMixin and "BackdropTemplate,SecureGroupHeaderTemplate")
+		frame = CreateFrame("Frame", name, UIParent, template)
 		frame.title = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
 
 		frame.title:SetPoint("BOTTOM", frame, "TOP", 0, 3)
@@ -231,7 +232,7 @@ function PerfectRaid:CreateRaidFrame(idx)
 
 	frame:SetAttribute("point", options.alignbottom and "BOTTOM" or "TOP")
 	frame:SetAttribute("groupFilter", options.filter or "")
-	frame:SetAttribute("template", "SecureUnitButtonTemplate")
+	frame:SetAttribute("template", "SecureUnitButtonTemplate,BackdropTemplate")
 	frame:SetAttribute("templateType", "Button")
 	frame:SetAttribute("yOffset", yoffset)
 	frame:SetAttribute("sortMethod", options.sortType)
@@ -598,9 +599,6 @@ function PerfectRaid.ConfigureButton(header, buttonName)
 
     -- Change with vehicle state:
     button:SetAttribute("toggleForVehicle", not not options.vehicleSwap)
-
-    -- Backdrop
-	Mixin(button, BackdropTemplateMixin)
 
 	local leftbox = CreateFrame("Frame", nil, button)
 	button.leftbox = leftbox

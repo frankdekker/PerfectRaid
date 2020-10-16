@@ -6,9 +6,9 @@
 		</Size>
 		<Anchors>
 			<Anchor point="CENTER"/>
-		</Anchors>		
+		</Anchors>
 		<Frames>
-		  <Button name="$parentHeader">
+		  <Button name="$parentHeader">			
 			<Size>
 			  <AbsDimension x="350" y="64"/>
 			</Size>
@@ -65,7 +65,7 @@
 				self.Title = getglobal(name.."Title")
 			</OnLoad>
 			<OnHide>
-				PlaySound(SOUNDKIT.IG_CHAT_SCROLL_UP);
+				PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
 			</OnHide>
 		</Scripts>
 	</Frame>

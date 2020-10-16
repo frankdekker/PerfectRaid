@@ -35,8 +35,8 @@ local g = getfenv(0)
 
 if not g.DongleStub or g.DongleStub:IsNewerVersion(major, minor) then
 	local lib = setmetatable({}, {
-		__call = function(t,k)
-			if type(t.versions) == "table" and t.versions[k] then
+		__call = function(t,k) 
+			if type(t.versions) == "table" and t.versions[k] then 
 				return t.versions[k].instance
 			else
 				error("Cannot find a library with name '"..tostring(k).."'", 2)
@@ -66,7 +66,7 @@ if not g.DongleStub or g.DongleStub:IsNewerVersion(major, minor) then
 		local oldmajor,oldminor = versionData.instance:GetVersion()
 		return minor > oldminor
 	end
-
+	
 	local function NilCopyTable(src, dest)
 		for k,v in pairs(dest) do dest[k] = nil end
 		for k,v in pairs(src) do dest[k] = v end
@@ -96,7 +96,7 @@ if not g.DongleStub or g.DongleStub:IsNewerVersion(major, minor) then
 				["instance"] = newInstance,
 				["deactivate"] = deactivate,
 			}
-
+			
 			self.versions[major] = versionData
 			if type(activate) == "function" then
 				table.insert(self.log, string.format("Activate: %s, %s", major, minor))
@@ -104,12 +104,12 @@ if not g.DongleStub or g.DongleStub:IsNewerVersion(major, minor) then
 			end
 			return newInstance
 		end
-
+		
 		local oldDeactivate = versionData.deactivate
 		local oldInstance = versionData.instance
-
+		
 		versionData.deactivate = deactivate
-
+		
 		local skipCopy
 		if type(activate) == "function" then
 			table.insert(self.log, string.format("Activate: %s, %s", major, minor))
@@ -134,7 +134,7 @@ if not g.DongleStub or g.DongleStub:IsNewerVersion(major, minor) then
 
 	local function Activate(new, old)
 		-- This code ensures that we'll move the versions table even
-		-- if the major version names are different, in the case of
+		-- if the major version names are different, in the case of 
 		-- DongleStub
 		if not old then old = g.DongleStub end
 
@@ -144,7 +144,7 @@ if not g.DongleStub or g.DongleStub:IsNewerVersion(major, minor) then
 		end
 		g.DongleStub = new
 	end
-
+	
 	-- Actually trigger libary activation here
 	local stub = g.DongleStub or lib
 	lib = stub:Register(lib, Activate)
@@ -535,7 +535,7 @@ local function OnUpdate(frame, elapsed)
 			else
 				safecall(schedule.func, schedule.name)
 			end
-
+			
 			if schedule.repeating then
 				schedule.timeToFire = schedule.timeToFire + schedule.repeating
 				HeapBubbleDown(1)
@@ -1044,7 +1044,7 @@ function Dongle.GetProfiles(db, tbl)
 		i = i + 1
 		tbl[i] = db.keys.profile
 	end
-
+	
 	return tbl, i
 end
 
@@ -1304,9 +1304,9 @@ do
 
 	function PLAYER_LOGIN()
 		if lockPlayerLogin then return end
-
+		
 		lockPlayerLogin = true
-
+		
 		local obj = table.remove(loadorder, 1)
 		while obj do
 			if type(obj.Enable) == "function" then
@@ -1314,7 +1314,7 @@ do
 			end
 			obj = table.remove(loadorder, 1)
 		end
-
+		
 		lockPlayerLogin = false
 	end
 end
@@ -1323,7 +1323,7 @@ local function ADDON_LOADED(event, ...)
 	local obj = table.remove(loadqueue, 1)
 	while obj do
 		table.insert(loadorder, obj)
-
+		
 		if type(obj.Initialize) == "function" then
 			safecall(obj.Initialize, obj)
 		end
