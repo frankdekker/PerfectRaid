@@ -97,6 +97,7 @@ function PerfectRaid:Enable()
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("PLAYER_ALIVE", function() self:UNIT_HEALTH("UNIT_HEALTH", "player") end)
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "FullUpdate")
+--	self:RegisterEvent("PLAYER_LEAVE_COMBAT")
 
 	-- Create our raid frames
 	self:UpdateRaidFrames()
@@ -178,6 +179,10 @@ local function OnDragStop(frame)
 	PerfectRaid:SavePosition(parent:GetName())
 	PerfectRaid.moving = nil
     PerfectRaid.movingButton = nil
+
+	if not InCombatLockdown() then
+		--PerfectRaid:UpdateRaidFrames()
+	end
 end
 
 function PerfectRaid:CreateRaidFrame(idx)
@@ -232,7 +237,7 @@ function PerfectRaid:CreateRaidFrame(idx)
 
 	frame:SetAttribute("point", options.alignbottom and "BOTTOM" or "TOP")
 	frame:SetAttribute("groupFilter", options.filter or "")
-	frame:SetAttribute("template", "SecureUnitButtonTemplate,BackdropTemplate")
+	frame:SetAttribute("template", "BackdropTemplate,SecureUnitButtonTemplate")
 	frame:SetAttribute("templateType", "Button")
 	frame:SetAttribute("yOffset", yoffset)
 	frame:SetAttribute("sortMethod", options.sortType)
@@ -296,6 +301,12 @@ function PerfectRaid:CHAT_MSG_SYSTEM(event, msg)
 				frame.unitname = nil
 			end
 		end
+	end
+end
+
+function PerfectRaid:PLAYER_LEAVE_COMBAT()
+	if not InCombatLockdown() then
+		PerfectRaid:UpdateRaidFrames()
 	end
 end
 
@@ -564,7 +575,7 @@ function OnAttributeChanged(frame, name, value)
 end
 
 function PerfectRaid.ConfigureButton(header, buttonName)
-    local self = PerfectRaid
+	local self = PerfectRaid
 
     local button
     if type(buttonName) == "string" then
@@ -639,6 +650,7 @@ function PerfectRaid.ConfigureButton(header, buttonName)
 	button:SetScript("OnDragStop", OnDragStop)
 	button:SetScript("OnAttributeChanged", OnAttributeChanged)
     button:SetScript("OnHide", OnHide)
+	RegisterUnitWatch(button, false);
 end
 
 function PerfectRaid:UpdateButtonLayout(button)
@@ -708,6 +720,10 @@ function PerfectRaid:GROUP_ROSTER_UPDATE()
 				frame.name:SetText(nametext)
 			end
 		end
+	end
+
+	if not InCombatLockdown() then
+		--PerfectRaid:UpdateRaidFrames()
 	end
  end
 
