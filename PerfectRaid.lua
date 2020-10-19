@@ -97,7 +97,7 @@ function PerfectRaid:Enable()
 	self:RegisterEvent("CHAT_MSG_SYSTEM")
 	self:RegisterEvent("PLAYER_ALIVE", function() self:UNIT_HEALTH("UNIT_HEALTH", "player") end)
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "FullUpdate")
---	self:RegisterEvent("PLAYER_LEAVE_COMBAT")
+	self:RegisterEvent("PLAYER_LEAVE_COMBAT")
 
 	-- Create our raid frames
 	self:UpdateRaidFrames()
@@ -181,7 +181,7 @@ local function OnDragStop(frame)
     PerfectRaid.movingButton = nil
 
 	if not InCombatLockdown() then
-		--PerfectRaid:UpdateRaidFrames()
+		PerfectRaid:UpdateRaidFrames()
 	end
 end
 
@@ -723,7 +723,7 @@ function PerfectRaid:GROUP_ROSTER_UPDATE()
 	end
 
 	if not InCombatLockdown() then
-		--PerfectRaid:UpdateRaidFrames()
+		PerfectRaid:UpdateRaidFrames()
 	end
  end
 
