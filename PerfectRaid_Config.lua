@@ -188,15 +188,16 @@ function Config:PartyVisibility()
 		-- Disable the party frames
 		self.hidingparty = true
 		for i=1,4 do
-			local f = getglobal("PartyMemberFrame"..i)
-			f:UnregisterAllEvents()
+                  -- The new frames don't have this...
+			-- local f = getglobal("PartyMemberFrame"..i)
+			-- f:UnregisterAllEvents()
 		end
 		if PartyMemberBackground and SHOW_PARTY_BACKGROUND == "1" then
 			PartyMemberBackground:Hide()
 		end
 
 		ShowPartyFrame = function() end
-		HidePartyFrame()
+		-- HidePartyFrame()
 	elseif self.hidingparty then
 		self.hidingparty = false
 		for i=1,4 do
