@@ -69,7 +69,7 @@
 			</OnHide>
 		</Scripts>
 	</Frame>
-	<Button name="PRTabTemplate" hidden="false" inherits="CharacterFrameTabButtonTemplate" virtual="true">>
+	<Button name="PRTabTemplate" hidden="false" inherits="PanelTabButtonTemplate" virtual="true">>
 		<Size>
 		    <AbsDimension x="115" y="32"/>
 		</Size>
@@ -127,6 +127,6 @@
 			</OnValueChanged>
 		</Scripts>
 	</Slider>
-	<Button name="PRButtonTemplate" inherits="OptionsButtonTemplate" virtual="true">
+	<Button name="PRButtonTemplate" inherits="UIPanelButtonTemplate" virtual="true">
 	</Button>
 </Ui>
